@@ -2,9 +2,9 @@
  - hosts: all 
    become:  true 
    tasks: 
-     - name: copy sensitive files to the  account of mike  in all systems
+     - name: copy sensitive files to the  account of bewah  in all systems
        copy: src=contract
-             dest=/home/mike/contract 
+             dest=/home/bewah/contract 
              owner=root 
              group=root
              mode=0000

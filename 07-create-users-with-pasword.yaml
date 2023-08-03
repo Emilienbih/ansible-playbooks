@@ -1,18 +1,18 @@
-- hosts: all 
+- hosts: db 
   become: yes
   tasks:
-  - name: Create Systems admin  User
+  - name: Create a user account for Emily
     user:
-      name: joyce
+      name: emily
       create_home: true
       shell: /bin/bash
-      comment: "joyce Management Account"
+      comment: "latest system engineer"
       expires: -1
-      password: "{{ 'DevOps@2020' | password_hash('sha512','A512') }}"
-  - name: Setup Sudo Access for Devops User
+      password: "{{ 'Admin2020@123' | password_hash('sha512','A512') }}"
+  - name: Setup Super admin or Sudo Access for User emily
     copy:
-      dest: /etc/sudoers.d/joyce
-      content: 'joyce ALL=(ALL) NOPASSWD: ALL' 
+      dest: /etc/sudoers.d/emily
+      content: 'emily ALL=(ALL) NOPASSWD: ALL' 
       validate: /usr/sbin/visudo -cf %s
   -  name: Disable Password Authentication
      lineinfile:

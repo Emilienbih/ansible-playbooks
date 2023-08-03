@@ -1,28 +1,51 @@
----
-- name: play-app - create tomcat x directories 
-  hosts: db
-  become: yes 
-  become_user:  root 
-  tasks:
-    - name: create a username for tomcat 
-      user:
-        name: john
-        group: rachel
-        shell: /bin/bash 
-        home: /home/john
+--- 
+#- name: play-app - create tomcat x directories 
+ # hosts: db
+#  become: yes 
+#  become_user:  root 
+ # tasks:
+ #   - name: create a username for tomcat
+         #file: #we are using the file module
+ 
+ #     user:
+ #       name: john
+ #       group: rachel
+ #       shell: /bin/bash 
+#        home: /home/john
 
 - name: Create directories and users on all staging-webservers
   hosts: stage 
   become: yes   #become grands ansible admin permissions 
   become_user: root 
   tasks:
-    - name: create a username for desmond
+    - name: create a username for emilien
       user:   #this is the user module
-        name: anu
-        groups:  mike
+        name: emilien
+        groups: emilien
         shell: /bin/bash 
-        home: /home/anu
+        home: /home/emilien
     - name: install httpd on all web servers/staging
       yum:     #yum is the package manager for linux system except ubuntu and debian
         name: httpd
         state: installed
+
+#play2
+- name: play-app - create tomcat x directories 
+  hosts: db
+  become: yes 
+  become_user:  root 
+  tasks:
+    - name: create a username for tomcat
+      user: #this is the user module
+        name: tomcatadmin
+        group: emilien
+        shell: /bin/bash 
+        home: /home/tomcat
+    - name: create a directory for apache tomcat
+      file: #this is the file module
+        path: /home/emilien
+        owner: emilien
+        group: emilien
+        state: absent
+        mode: 0755  #read =4 write =2 execute =1 / 4+2+1 =7(rwx) 4+1=5(rx)
+...
